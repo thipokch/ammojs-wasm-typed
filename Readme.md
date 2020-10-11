@@ -1,6 +1,7 @@
 # Ammo.js Typed
 
 This project provides the [Ammo.js](https://github.com/kripken/ammo.js) modules with typescript definitions.
+This repo is forked from [ammojs-typed](https://github.com/giniedp/ammojs-typed).
 
 # Installation
 
@@ -34,7 +35,7 @@ require('ammojs-typed')
 or reference the script
 
 ```html
-<script src="./ammo.js">
+<script src="./ammo.wasm.js">
 ```
 
 And use the global `Ammo` object
@@ -83,7 +84,7 @@ Ammo(Ammo).then(() => {
 Enable same `compilerOptions` as above
 
 ```ts
-import('./ammo.js')                        // use dynamic import
+import('./ammo.wasm.js')                        // use dynamic import
   .then((Module) => Module.default())      // bootstrap ammo.js
   .then((ammo) => {
     const v1 = new ammo.btVector3(1, 2, 3) // use ammo here
@@ -93,9 +94,9 @@ import('./ammo.js')                        // use dynamic import
 Since typescript 3.8 you can use [type only imports](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-and-exports). So with dynamic imports you can safely import ammo.js types, without including them in you bundle like this
 
 ```ts
-import type Ammo from './ammo.js'
+import type Ammo from './ammo.wasm.js'
 
-import('./ammo.js')                        // use dynamic import
+import('./ammo.wasm.js')                        // use dynamic import
   .then((Module) => Module.default())      // bootstrap ammo.js
   .then((ammo) => {
     let v1: Ammo.btVector3 = null
