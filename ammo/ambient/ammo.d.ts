@@ -1,6 +1,16 @@
 declare function Ammo<T>(target?: T): Promise<T & typeof Ammo>;
 declare module Ammo {
     function destroy(obj: any): void;
+    function _malloc(size: number): number;
+    function _free(ptr: number): void;
+    const HEAP8: Int8Array;
+    const HEAP16: Int16Array;
+    const HEAP32: Int32Array;
+    const HEAPU8: Uint8Array;
+    const HEAPU16: Uint16Array;
+    const HEAPU32: Uint32Array;
+    const HEAPF32: Float32Array;
+    const HEAPF64: Float64Array;
     class btIDebugDraw {
         drawLine(from: btVector3, to: btVector3, color: btVector3): void;
         drawContactPoint(pointOnB: btVector3, normalOnB: btVector3, distance: number, lifeTime: number, color: btVector3): void;
@@ -40,8 +50,8 @@ declare module Ammo {
         constructor();
         constructor(x: number, y: number, z: number, w: number);
         w(): number;
-        setValue(x: number, y: number, z: number): void;
         setValue(x: number, y: number, z: number, w: number): void;
+        setValue(x: number, y: number, z: number): void;
     }
     class btQuadWord {
         x(): number;
@@ -237,6 +247,8 @@ declare module Ammo {
     }
     class ClosestConvexResultCallback extends ConvexResultCallback {
         constructor(convexFromWorld: btVector3, convexToWorld: btVector3);
+        get_m_hitCollisionObject(): btCollisionObject;
+        set_m_hitCollisionObject(m_hitCollisionObject: btCollisionObject): void;
         get_m_convexFromWorld(): btVector3;
         set_m_convexFromWorld(m_convexFromWorld: btVector3): void;
         get_m_convexToWorld(): btVector3;
@@ -382,14 +394,7 @@ declare module Ammo {
         addIndex(index: number): void;
         getIndexedMeshArray(): btIndexedMeshArray;
     }
-    enum PHY_ScalarType {
-        PHY_FLOAT,
-        PHY_DOUBLE,
-        PHY_INTEGER,
-        PHY_SHORT,
-        PHY_FIXEDPOINT88,
-        PHY_UCHAR
-    }
+    type PHY_ScalarType = "PHY_FLOAT" | "PHY_DOUBLE" | "PHY_INTEGER" | "PHY_SHORT" | "PHY_FIXEDPOINT88" | "PHY_UCHAR";
     class btConcaveShape extends btCollisionShape {
     }
     class btEmptyShape extends btConcaveShape {
@@ -530,12 +535,7 @@ declare module Ammo {
         getParam(num: number, axis: number): number;
         setParam(num: number, value: number, axis: number): void;
     }
-    enum btConstraintParams {
-        BT_CONSTRAINT_ERP,
-        BT_CONSTRAINT_STOP_ERP,
-        BT_CONSTRAINT_CFM,
-        BT_CONSTRAINT_STOP_CFM
-    }
+    type btConstraintParams = "BT_CONSTRAINT_ERP" | "BT_CONSTRAINT_STOP_ERP" | "BT_CONSTRAINT_CFM" | "BT_CONSTRAINT_STOP_CFM";
     class btPoint2PointConstraint extends btTypedConstraint {
         constructor(rbA: btRigidBody, rbB: btRigidBody, pivotInA: btVector3, pivotInB: btVector3);
         constructor(rbA: btRigidBody, pivotInA: btVector3);
@@ -653,12 +653,11 @@ declare module Ammo {
         get_m_numIterations(): number;
         set_m_numIterations(m_numIterations: number): void;
     }
-    type btInternalTickCallback = (world: btDynamicsWorld, timeStep: number) => void;
     class btDynamicsWorld extends btCollisionWorld {
         addAction(action: btActionInterface): void;
         removeAction(action: btActionInterface): void;
         getSolverInfo(): btContactSolverInfo;
-        setInternalTickCallback(cb: btInternalTickCallback, worldUserInfo?: unknown, isPreTick?: boolean): void;
+        setInternalTickCallback(cb: unknown, worldUserInfo?: unknown, isPreTick?: boolean): void;
     }
     class btDiscreteDynamicsWorld extends btDynamicsWorld {
         constructor(dispatcher: btDispatcher, pairCache: btBroadphaseInterface, constraintSolver: btConstraintSolver, collisionConfiguration: btCollisionConfiguration);

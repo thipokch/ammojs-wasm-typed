@@ -44,8 +44,8 @@ interface btVector4 {
   void btVector4();
   void btVector4(float x, float y, float z, float w);
   float w();
-  void setValue(float x, float y, float z);
   void setValue(float x, float y, float z, float w);
+  void setValue(float x, float y, float z);
 };
 btVector4 implements btVector3;
 
@@ -254,7 +254,7 @@ interface ConvexResultCallback {
 [Prefix="btCollisionWorld::"]
 interface ClosestConvexResultCallback {
   void ClosestConvexResultCallback([Const, Ref] btVector3 convexFromWorld, [Const, Ref] btVector3 convexToWorld);
-
+  [Const] attribute btCollisionObject m_hitCollisionObject;
   [Value] attribute btVector3 m_convexFromWorld;
   [Value] attribute btVector3 m_convexToWorld;
   [Value] attribute btVector3 m_hitNormalWorld;
@@ -738,13 +738,11 @@ interface btContactSolverInfo {
   attribute long m_numIterations;
 };
 
-callback btInternalTickCallback = void (btDynamicsWorld world, float timeStep);
-
 interface btDynamicsWorld {
   void addAction(btActionInterface action);
   void removeAction(btActionInterface action);
   [Ref] btContactSolverInfo getSolverInfo();
-  void setInternalTickCallback(btInternalTickCallback cb, optional VoidPtr worldUserInfo, optional boolean isPreTick);
+  void setInternalTickCallback(VoidPtr cb, optional VoidPtr worldUserInfo, optional boolean isPreTick);
 };
 btDynamicsWorld implements btCollisionWorld;
 
