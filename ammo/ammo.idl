@@ -45,7 +45,6 @@ interface btVector4 {
   void btVector4(float x, float y, float z, float w);
   float w();
   void setValue(float x, float y, float z, float w);
-  void setValue(float x, float y, float z);
 };
 btVector4 implements btVector3;
 
@@ -521,7 +520,7 @@ interface btBroadphaseInterface {
 interface btCollisionConfiguration {
 };
 
-interface btDbvtBroadphase: btBroadphaseInterface {
+interface btDbvtBroadphase {
   void btDbvtBroadphase();
 };
 

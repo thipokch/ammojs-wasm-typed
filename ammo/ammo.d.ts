@@ -52,7 +52,6 @@ declare module Ammo {
         constructor(x: number, y: number, z: number, w: number);
         w(): number;
         setValue(x: number, y: number, z: number, w: number): void;
-        setValue(x: number, y: number, z: number): void;
     }
     class btQuadWord {
         x(): number;
@@ -448,7 +447,7 @@ declare module Ammo {
     }
     class btCollisionConfiguration {
     }
-    class btDbvtBroadphase extends btBroadphaseInterface {
+    class btDbvtBroadphase {
         constructor();
     }
     class btBroadphaseProxy {

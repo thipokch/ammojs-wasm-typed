@@ -1,12 +1,12 @@
 {
   "name": "ammojs-wasm-typed",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Ammo.js web assembly with type definitions",
   "main": "ammo/ammo.wasm.js",
   "types": "ammo/ammo.d.ts",
   "scripts": {
     "download:idl": "curl -L https://raw.githubusercontent.com/kripken/ammo.js/master/ammo.idl -o ./ammo/ammo.idl",
-    "download:js": "curl -L https://github.com/kripken/ammo.js/raw/master/builds/ammo.wasm.js -o ./ammo/ammo.wasm.js",
+    "download:js": "curl -L https://github.com/kripken/ammo.js/raw/master/builds/ammo.wasm.js -o ./ammo/ammo.js",
     "download:wasm": "curl -L https://github.com/kripken/ammo.js/raw/master/builds/ammo.wasm -o ./ammo/ammo.wasm",
     "download": "npm run download:idl && npm run download:js && npm run download:wasm",
     "generate": "yarn generate:module && yarn generate:ambient",
